@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  /* Our Core Memory Palette */
+  --color-janus-bg: #0d1117;
+  --color-janus-teal: #39c5cf;
+  --color-janus-amber: #fdc349;
+  --color-janus-slate: #6e7681;
+  --color-janus-purple: #a371f7;
+  --color-janus-red: #f85149;
+  --color-janus-green: #3fb950;
+  
+  --font-mono: 'Fira Code', 'JetBrains Mono', monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-janus-bg text-gray-300 font-mono antialiased;
+    /* Procedural Grid / Blueprint Background */
+    background-image: 
+        linear-gradient(rgba(57, 197, 207, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57, 197, 207, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 {
+    @apply text-gray-100 font-bold tracking-tight;
+  }
+}
+
+/* Custom utility for our glowing borders */
+@layer utilities {
+  .border-glow-teal {
+    border-color: rgba(57, 197, 207, 0.3);
+    box-shadow: 0 0 10px rgba(57, 197, 207, 0.1);
+  }
+  .border-glow-amber {
+    border-color: rgba(253, 195, 73, 0.3);
+    box-shadow: 0 0 10px rgba(253, 195, 73, 0.1);
+  }
+}
+
+@keyframes synaptic-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@layer utilities {
+  .animate-synaptic {
+    background-size: 200% auto;
+    animation: synaptic-flow 6s linear infinite;
+  }
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+}
