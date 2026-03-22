@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import { DEPENDENCY_MAP, APP_NAMES, BEVY_NAMES } from '$lib/config';
 
     interface CrateData {
         version?: string;
@@ -32,22 +33,7 @@
 
     let { cratesData, githubData }: { cratesData: Record<string, CrateData>; githubData: Record<string, GitHubData> } = $props();
 
-    // --- Dependency topology (from Cargo.toml analysis) ---
-    const dependencyMap: Record<string, string[]> = {
-        // Apps → Bevy + Agnostic layers
-        'lsystem-explorer': ['bevy_symbios', 'bevy_symbios_texture', 'symbios', 'symbios-turtle-3d', 'symbios-genetics'],
-        'symbios-ground-lab': ['bevy_symbios_ground', 'bevy_symbios_shape', 'bevy_symbios_texture', 'symbios-ground', 'symbios-shape', 'symbios-tensor'],
-        'symbios-robot-lab': ['bevy_symbios', 'symbios', 'symbios-robot', 'symbios-neat', 'symbios-genetics'],
-        // Bevy → Agnostic layer
-        'bevy_symbios': ['symbios', 'symbios-turtle-3d', 'bevy_symbios_texture'],
-        'bevy_symbios_texture': ['symbios-genetics'],
-        'bevy_symbios_ground': ['symbios-ground'],
-        'bevy_symbios_shape': ['symbios-shape', 'bevy_symbios_texture'],
-        // Agnostic intra-layer
-        'symbios-shape': ['symbios-genetics'],
-        'symbios-tensor': ['symbios-ground'],
-        'symbios-neat': ['symbios-genetics'],
-    };
+    const dependencyMap = DEPENDENCY_MAP;
 
     /** Collect all transitive dependencies of a node */
     function resolveDeps(node: string): string[] {
@@ -101,12 +87,9 @@
     let svgPaths: Array<{ d: string; from: string; to: string }> = $state([]);
 
     /** Determine which layer a node belongs to for correct edge selection */
-    const appNames = ['lsystem-explorer', 'symbios-ground-lab', 'symbios-robot-lab'];
-    const bevyNames = ['bevy_symbios', 'bevy_symbios_texture', 'bevy_symbios_ground', 'bevy_symbios_shape'];
-
     function getLayer(name: string): number {
-        if (appNames.includes(name)) return 3;
-        if (bevyNames.includes(name)) return 2;
+        if ((APP_NAMES as readonly string[]).includes(name)) return 3;
+        if ((BEVY_NAMES as readonly string[]).includes(name)) return 2;
         return 1;
     }
 

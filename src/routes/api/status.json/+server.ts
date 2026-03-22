@@ -1,19 +1,9 @@
 import { json } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
+import { CRATES, GITHUB_REPOS } from '$lib/config';
 
 // Tell SvelteKit to bake this endpoint into a static file at build time
 export const prerender = true;
-
-const CRATES =[
-    'symbios', 'symbios-genetics', 'symbios-tensor', 'symbios-wfc', 'symbios-bsp',
-    'bevy_symbios', 'bevy_symbios_texture', 'bevy_symbios_ground', 'bevy_symbios_shape'
-];
-
-const GITHUB_REPOS =[
-    'TheJanusStream/the-janus-foundry',
-    'TheJanusStream/symbios',
-    'TheJanusStream/artificial-life-explorer'
-];
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 

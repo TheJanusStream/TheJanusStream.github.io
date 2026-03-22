@@ -1,19 +1,6 @@
 import { env } from '$env/dynamic/private';
+import { CRATES, GITHUB_REPOS } from '$lib/config';
 import type { PageServerLoad } from './$types';
-
-const CRATES = [
-    'symbios-genetics', 'symbios','symbios-turtle-3d', 'symbios-robot', 'symbios-ground', 'symbios-tensor', 'symbios-shape', 'symbios-neat',
-    'bevy_symbios', 'bevy_symbios_texture', 'bevy_symbios_ground', 'bevy_symbios_shape'
-];
-
-const GITHUB_REPOS = [
-    'TheJanusStream/the-janus-foundry',
-    'TheJanusStream/symbios',
-    'TheJanusStream/artificial-life-explorer',
-    'TheJanusStream/lsystem-explorer',
-    'TheJanusStream/symbios-ground-lab',
-    'TheJanusStream/symbios-robot-lab'
-];
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
