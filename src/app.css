@@ -41,6 +41,65 @@
   }
 }
 
+/* Forge Glow — slow-drifting radial highlights over the blueprint grid */
+.forge-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.forge-glow::before,
+.forge-glow::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* Teal ember — large soft glow */
+.forge-glow::before {
+  width: 800px;
+  height: 600px;
+  top: -200px;
+  left: -300px;
+  background: radial-gradient(ellipse at center,
+    rgba(57, 197, 207, 0.08) 0%,
+    rgba(57, 197, 207, 0.03) 40%,
+    transparent 70%);
+  animation: forge-ember-teal 25s ease-in-out infinite;
+}
+
+/* Amber ember — smaller, warmer glow */
+.forge-glow::after {
+  width: 600px;
+  height: 500px;
+  bottom: -150px;
+  right: -200px;
+  background: radial-gradient(ellipse at center,
+    rgba(253, 195, 73, 0.06) 0%,
+    rgba(253, 195, 73, 0.02) 40%,
+    transparent 70%);
+  animation: forge-ember-amber 30s ease-in-out infinite;
+}
+
+@keyframes forge-ember-teal {
+  0%   { transform: translate(10vw, 15vh); }
+  25%  { transform: translate(55vw, 25vh); }
+  50%  { transform: translate(70vw, 55vh); }
+  75%  { transform: translate(30vw, 65vh); }
+  100% { transform: translate(10vw, 15vh); }
+}
+
+@keyframes forge-ember-amber {
+  0%   { transform: translate(-10vw, -5vh); }
+  25%  { transform: translate(-50vw, -20vh); }
+  50%  { transform: translate(-65vw, -50vh); }
+  75%  { transform: translate(-30vw, -35vh); }
+  100% { transform: translate(-10vw, -5vh); }
+}
+
 @keyframes synaptic-flow {
   0% { background-position: 0% 50%; }
   100% { background-position: 200% 50%; }

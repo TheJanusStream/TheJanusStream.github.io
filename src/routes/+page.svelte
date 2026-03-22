@@ -10,7 +10,7 @@
 	const exhibitLabels = ['Symbios', 'Workflow', 'Foundry'];
 </script>
 
-<main class="mx-auto max-w-7xl px-6 py-16">
+<main class="relative z-10 mx-auto max-w-7xl px-6 py-16">
 	<header class="mb-20 text-center">
 <h1 class="mb-6 text-5xl font-bold tracking-tighter flex justify-center items-center">
     <span class="text-white">The</span>
