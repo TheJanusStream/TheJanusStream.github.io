@@ -201,9 +201,9 @@
     }
 
     const canvasApps = [
-        { slug: 'TheJanusStream/lsystem-explorer', name: 'lsystem-explorer', fallbackDesc: 'Interactive Evolutionary Computation workbench.', appUrl: 'https://thejanusstream.github.io/lsystem-explorer' },
-        { slug: 'TheJanusStream/symbios-ground-lab', name: 'symbios-ground-lab', fallbackDesc: 'Procedural terraforming & urban tensor mapping.', appUrl: 'https://thejanusstream.github.io/symbios-ground-lab' },
-        { slug: 'TheJanusStream/symbios-robot-lab', name: 'symbios-robot-lab', fallbackDesc: 'Robots with evolving bodies & brains.', appUrl: 'https://thejanusstream.github.io/symbios-robot-lab' }
+        { slug: 'TheJanusStream/lsystem-explorer', name: 'lsystem-explorer', fallbackDesc: 'Interactive Evolutionary Computation workbench.', appUrl: 'https://thejanusstream.github.io/lsystem-explorer', image: '/lsystem-explorer.png' },
+        { slug: 'TheJanusStream/symbios-ground-lab', name: 'symbios-ground-lab', fallbackDesc: 'Procedural terraforming & urban tensor mapping.', appUrl: 'https://thejanusstream.github.io/symbios-ground-lab', image: '/symbios-ground-lab.png' },
+        { slug: 'TheJanusStream/symbios-robot-lab', name: 'symbios-robot-lab', fallbackDesc: 'Robots with evolving bodies & brains.', appUrl: 'https://thejanusstream.github.io/symbios-robot-lab', image: '/symbios-robot-lab.png' }
     ];
 
     const getRepo = (slug: string) => githubData?.[slug] ?? null;
@@ -378,40 +378,48 @@
                         {#each canvasApps as app (app.slug)}
                             {@const gh = getRepo(app.slug)}
                             <div bind:this={cardEls[app.name]}
-                                 class="p-4 border rounded flex flex-col transition-all duration-300 cursor-default {isHighlighted(app.name) ? 'border-janus-amber/60 bg-janus-amber/5' : 'border-janus-slate/10 bg-transparent opacity-20'} {hoveredNode === app.name ? 'border-janus-amber shadow-[0_0_12px_rgba(253,195,73,0.3)]' : ''}"
+                                 class="group/app relative border rounded overflow-hidden transition-all duration-300 cursor-default {isHighlighted(app.name) ? 'border-janus-amber/60' : 'border-janus-slate/10 opacity-20'} {hoveredNode === app.name ? 'border-janus-amber shadow-[0_0_12px_rgba(253,195,73,0.3)]' : ''}"
                                  onmouseenter={() => { hoveredNode = app.name; computePaths(); }}
                                  role="listitem">
-                                <span class="font-bold text-janus-amber block mb-2">{app.name}</span>
-                                <p class="text-xs text-gray-400 mb-3">{gh?.description ?? app.fallbackDesc}</p>
+                                <!-- Background image -->
+                                <div class="absolute inset-0 bg-center bg-no-repeat bg-cover transition-opacity duration-500 group-hover/app:opacity-20" style="background-image: url('{app.image}');"></div>
+                                <!-- Blur overlay -->
+                                <div class="absolute inset-0 bg-janus-bg/80 backdrop-blur-md opacity-0 transition-opacity duration-500 group-hover/app:opacity-100 pointer-events-none"></div>
 
-                                {#if gh}
-                                    <div class="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-janus-slate mb-3">
-                                        {#if gh.stars != null}
-                                            <span title="GitHub stars">&#x2605; {gh.stars}</span>
-                                        {/if}
-                                        {#if gh.forks != null}
-                                            <span title="Forks">&#x2442; {gh.forks}</span>
-                                        {/if}
-                                        {#if gh.language}
-                                            <span title="Primary language">{gh.language}</span>
-                                        {/if}
-                                        {#if gh.license}
-                                            <span title="License">{gh.license}</span>
-                                        {/if}
-                                    </div>
+                                <!-- Content: hidden until hover -->
+                                <div class="relative z-10 p-4 flex flex-col opacity-0 transition-opacity duration-500 group-hover/app:opacity-100 min-h-45">
+                                    <span class="font-bold text-janus-amber block mb-2">{app.name}</span>
+                                    <p class="text-xs text-gray-400 mb-3">{gh?.description ?? app.fallbackDesc}</p>
 
-                                    {#if gh.topics && gh.topics.length > 0}
-                                        <div class="flex flex-wrap gap-1 mb-3">
-                                            {#each gh.topics.slice(0, 4) as topic (topic)}
-                                                <span class="text-[9px] px-1.5 py-0.5 rounded bg-janus-amber/10 text-janus-amber/70">{topic}</span>
-                                            {/each}
+                                    {#if gh}
+                                        <div class="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-janus-slate mb-3">
+                                            {#if gh.stars != null}
+                                                <span title="GitHub stars">&#x2605; {gh.stars}</span>
+                                            {/if}
+                                            {#if gh.forks != null}
+                                                <span title="Forks">&#x2442; {gh.forks}</span>
+                                            {/if}
+                                            {#if gh.language}
+                                                <span title="Primary language">{gh.language}</span>
+                                            {/if}
+                                            {#if gh.license}
+                                                <span title="License">{gh.license}</span>
+                                            {/if}
                                         </div>
-                                    {/if}
-                                {/if}
 
-                                <div class="mt-auto flex gap-2 pt-1">
-                                    <a href={app.appUrl} target="_blank" rel="external noopener noreferrer" class="flex-1 block text-center py-2 bg-janus-amber/10 text-gray-200 text-xs uppercase tracking-widest border border-janus-amber rounded hover:bg-janus-amber hover:text-black transition-colors">Launch App</a>
-                                    <a href="https://github.com/{app.slug}" target="_blank" rel="noopener" class="flex-none flex items-center px-3 py-2 bg-janus-amber/10 text-gray-200 text-xs uppercase tracking-widest border border-janus-amber rounded hover:bg-janus-amber hover:text-black transition-colors">Source</a>
+                                        {#if gh.topics && gh.topics.length > 0}
+                                            <div class="flex flex-wrap gap-1 mb-3">
+                                                {#each gh.topics.slice(0, 4) as topic (topic)}
+                                                    <span class="text-[9px] px-1.5 py-0.5 rounded bg-janus-amber/10 text-janus-amber/70">{topic}</span>
+                                                {/each}
+                                            </div>
+                                        {/if}
+                                    {/if}
+
+                                    <div class="mt-auto flex gap-2 pt-1">
+                                        <a href={app.appUrl} target="_blank" rel="external noopener noreferrer" class="flex-1 block text-center py-2 bg-janus-amber/10 text-gray-200 text-xs uppercase tracking-widest border border-janus-amber rounded hover:bg-janus-amber hover:text-black transition-colors">Launch App</a>
+                                        <a href="https://github.com/{app.slug}" target="_blank" rel="noopener" class="flex-none flex items-center px-3 py-2 bg-janus-amber/10 text-gray-200 text-xs uppercase tracking-widest border border-janus-amber rounded hover:bg-janus-amber hover:text-black transition-colors">Source</a>
+                                    </div>
                                 </div>
                             </div>
                         {/each}
