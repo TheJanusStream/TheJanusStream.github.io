@@ -1,5 +1,16 @@
 <script lang="ts">
-	let { githubData }: { githubData: Record<string, any> } = $props();
+   interface GitHubData {
+        stars?: number;
+        forks?: number;
+        open_issues?: number;
+        description?: string;
+        url?: string;
+        license?: string;
+        language?: string;
+        topics?: string[];
+    }
+
+	let { githubData }: { githubData: Record<string, GitHubData> } = $props();
 	const foundryRepo = githubData?.['TheJanusStream/the-janus-foundry'] || {};
 </script>
 

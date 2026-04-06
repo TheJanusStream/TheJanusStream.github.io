@@ -203,7 +203,8 @@
     const canvasApps = [
         { slug: 'TheJanusStream/lsystem-explorer', name: 'lsystem-explorer', fallbackDesc: 'Interactive Evolutionary Computation workbench.', appUrl: 'https://thejanusstream.github.io/lsystem-explorer', image: '/lsystem-explorer.png' },
         { slug: 'TheJanusStream/symbios-ground-lab', name: 'symbios-ground-lab', fallbackDesc: 'Procedural terraforming & urban tensor mapping.', appUrl: 'https://thejanusstream.github.io/symbios-ground-lab', image: '/symbios-ground-lab.png' },
-        { slug: 'TheJanusStream/symbios-robot-lab', name: 'symbios-robot-lab', fallbackDesc: 'Robots with evolving bodies & brains.', appUrl: 'https://thejanusstream.github.io/symbios-robot-lab', image: '/symbios-robot-lab.png' }
+        { slug: 'TheJanusStream/symbios-robot-lab', name: 'symbios-robot-lab', fallbackDesc: 'Robots with evolving bodies & brains.', appUrl: 'https://thejanusstream.github.io/symbios-robot-lab', image: '/symbios-robot-lab.png' },
+        { slug: 'TheJanusStream/symbios-overlands', name: 'symbios-overlands', fallbackDesc: 'coming soon.', appUrl: 'https://thejanusstream.github.io/symbios-overlands', image: '/symbios-overlands.png' }
     ];
 
     const getRepo = (slug: string) => githubData?.[slug] ?? null;
@@ -317,8 +318,8 @@
                 <!-- Layer 2 (middle): Bevy Integration -->
                 <div>
                     <h3 class="text-lg text-janus-slate border-b border-janus-slate pb-2 mb-4">2. Integration Layer (for Bevy)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {#each ['bevy_symbios', 'bevy_symbios_texture', 'bevy_symbios_ground', 'bevy_symbios_shape'] as crate (crate)}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {#each ['bevy_symbios_texture', 'bevy_symbios', 'bevy_symbios_multiuser', 'bevy_symbios_ground', 'bevy_symbios_shape'] as crate (crate)}
                             {@const c = getCrate(crate)}
                             <div bind:this={cardEls[crate]}
                                  class="p-4 border rounded bg-black/50 flex flex-col transition-all duration-300 cursor-default {isHighlighted(crate) ? 'border-janus-purple/60' : 'border-janus-slate/10 opacity-20'} {hoveredNode === crate ? 'border-janus-purple shadow-[0_0_12px_rgba(163,113,247,0.3)]' : ''}"
@@ -374,7 +375,7 @@
                 <!-- Layer 3 (top): Applications -->
                 <div>
                     <h3 class="text-lg text-janus-slate border-b border-janus-slate pb-2 mb-4">3. Interactive Canvases (as WASM)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {#each canvasApps as app (app.slug)}
                             {@const gh = getRepo(app.slug)}
                             <div bind:this={cardEls[app.name]}
