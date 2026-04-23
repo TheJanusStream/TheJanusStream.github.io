@@ -38,7 +38,7 @@ export const DEPENDENCY_MAP: Record<string, string[]> = {
     'lsystem-explorer': ['bevy_symbios', 'bevy_symbios_texture', 'symbios', 'symbios-turtle-3d', 'symbios-genetics'],
     'symbios-ground-lab': ['bevy_symbios_ground', 'bevy_symbios_shape', 'bevy_symbios_texture', 'symbios-ground', 'symbios-shape', 'symbios-tensor'],
     'symbios-robot-lab': ['bevy_symbios', 'symbios', 'symbios-robot', 'symbios-neat', 'symbios-genetics'],
-    'symbios-overlands': ['bevy_symbios_texture', "bevy_symbios_multiuser", "symbios-ground", "bevy_symbios_ground"],
+    'symbios-overlands': ['bevy_symbios_texture', "bevy_symbios_multiuser", "symbios-ground", "bevy_symbios_ground", "bevy_symbios", "symbios", "symbios-turtle-3d"],
     // Bevy → Agnostic layer
     'bevy_symbios': ['symbios', 'symbios-turtle-3d', 'bevy_symbios_texture'],
     'bevy_symbios_texture': ['symbios-genetics'],
