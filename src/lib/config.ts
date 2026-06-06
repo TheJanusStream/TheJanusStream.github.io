@@ -23,14 +23,15 @@ export const GITHUB_REPOS = [
     'TheJanusStream/bevy_symbios_texture',
     'TheJanusStream/bevy_symbios_ground',
     'TheJanusStream/bevy_symbios_shape',
-    'TheJanusStream/bevy_symbios_multiuser'
+    'TheJanusStream/bevy_symbios_multiuser',
+    'TheJanusStream/bevy_symbios_audio'
 ] as const;
 
 /** Application-layer project names */
 export const APP_NAMES = ['lsystem-explorer', 'symbios-ground-lab', 'symbios-robot-lab', 'symbios-overlands'] as const;
 
 /** Bevy-layer crate names */
-export const BEVY_NAMES = ['bevy_symbios_texture', 'bevy_symbios', 'bevy_symbios_multiuser', 'bevy_symbios_ground', 'bevy_symbios_shape'] as const;
+export const BEVY_NAMES = ['bevy_symbios_texture', 'bevy_symbios', 'bevy_symbios_multiuser', 'bevy_symbios_ground', 'bevy_symbios_shape', 'bevy_symbios_audio'] as const;
 
 /** Dependency topology derived from Cargo.toml analysis */
 export const DEPENDENCY_MAP: Record<string, string[]> = {
@@ -38,12 +39,13 @@ export const DEPENDENCY_MAP: Record<string, string[]> = {
     'lsystem-explorer': ['bevy_symbios', 'bevy_symbios_texture', 'symbios', 'symbios-turtle-3d', 'symbios-genetics'],
     'symbios-ground-lab': ['bevy_symbios_ground', 'bevy_symbios_shape', 'bevy_symbios_texture', 'symbios-ground', 'symbios-shape', 'symbios-tensor'],
     'symbios-robot-lab': ['bevy_symbios', 'symbios', 'symbios-robot', 'symbios-neat', 'symbios-genetics'],
-    'symbios-overlands': ['bevy_symbios_texture', "bevy_symbios_multiuser", "symbios-ground", "bevy_symbios_ground", "bevy_symbios", "symbios", "symbios-turtle-3d", "symbios-shape", "bevy_symbios_shape"],
+    'symbios-overlands': ['bevy_symbios_texture', "bevy_symbios_multiuser", "symbios-ground", "bevy_symbios_ground", "bevy_symbios", "symbios", "symbios-turtle-3d", "symbios-shape", "bevy_symbios_shape", "bevy_symbios_audio"],
     // Bevy → Agnostic layer
     'bevy_symbios': ['symbios', 'symbios-turtle-3d', 'bevy_symbios_texture'],
     'bevy_symbios_texture': ['symbios-genetics'],
     'bevy_symbios_ground': ['symbios-ground'],
     'bevy_symbios_shape': ['symbios-shape', 'bevy_symbios_texture'],
+    'bevy_symbios_audio': ['symbios-genetics'],
     // Agnostic intra-layer
     'symbios-shape': ['symbios-genetics'],
     'symbios-tensor': ['symbios-ground'],
