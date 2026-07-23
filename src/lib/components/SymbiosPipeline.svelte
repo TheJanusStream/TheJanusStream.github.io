@@ -262,7 +262,7 @@
                 <div>
                     <h3 class="text-lg text-janus-slate border-b border-janus-slate pb-2 mb-4">1. Game-engine agnostic (Rust)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {#each ['symbios', 'symbios-texture', 'symbios-turtle-3d', 'symbios-robot', 'symbios-ground', 'symbios-audio', 'symbios-shape', 'symbios-neat', 'symbios-genetics', 'symbios-tensor'] as crate (crate)}
+                        {#each ['symbios', 'symbios-texture', 'symbios-turtle-3d', 'symbios-robot', 'symbios-tensor', 'symbios-audio', 'symbios-shape', 'symbios-neat', 'symbios-genetics', 'symbios-ground'] as crate (crate)}
                             {@const c = getCrate(crate)}
                             <div bind:this={cardEls[crate]}
                                  class="p-4 border rounded bg-black/50 flex flex-col transition-all duration-300 cursor-default {isHighlighted(crate) ? 'border-janus-teal/60' : 'border-janus-slate/10 opacity-20'} {hoveredNode === crate ? 'border-janus-teal shadow-[0_0_12px_rgba(57,197,207,0.3)]' : ''}"
@@ -319,7 +319,7 @@
                 <div>
                     <h3 class="text-lg text-janus-slate border-b border-janus-slate pb-2 mb-4">2. Integration Layer (for Bevy)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {#each ['bevy_symbios_shape', 'bevy_symbios', 'bevy_symbios_multiuser', 'bevy_symbios_ground', 'bevy_symbios_texture', 'bevy_symbios_audio'] as crate (crate)}
+                        {#each ['bevy_symbios_shape', 'bevy_symbios_multiuser', 'bevy_symbios', 'bevy_symbios_ground', 'bevy_symbios_texture', 'bevy_symbios_audio'] as crate (crate)}
                             {@const c = getCrate(crate)}
                             <div bind:this={cardEls[crate]}
                                  class="p-4 border rounded bg-black/50 flex flex-col transition-all duration-300 cursor-default {isHighlighted(crate) ? 'border-janus-purple/60' : 'border-janus-slate/10 opacity-20'} {hoveredNode === crate ? 'border-janus-purple shadow-[0_0_12px_rgba(163,113,247,0.3)]' : ''}"
