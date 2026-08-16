@@ -1,7 +1,7 @@
 /** Crate names tracked on crates.io */
 export const CRATES = [
-    'symbios-genetics', 'symbios', 'symbios-turtle-3d', 'symbios-robot', 'symbios-ground', 'symbios-tensor', 'symbios-shape', 'symbios-neat', 'symbios-texture', 'symbios-audio',
-    'bevy_symbios', 'bevy_symbios_texture', 'bevy_symbios_ground', 'bevy_symbios_shape', 'bevy_symbios_multiuser', 'bevy_symbios_audio'
+    'symbios-genetics', 'symbios', 'symbios-turtle-3d', 'symbios-robot', 'symbios-ground', 'symbios-tensor', 'symbios-shape', 'symbios-neat', 'symbios-texture', 'symbios-audio', 'symios-avatar',
+    'bevy_symbios', 'bevy_symbios_texture', 'bevy_symbios_ground', 'bevy_symbios_shape', 'bevy_symbios_multiuser', 'bevy_symbios_audio', 'bevy_symbios_avatar'
 ] as const;
 
 /** GitHub repositories (org/repo format) */
@@ -21,19 +21,21 @@ export const GITHUB_REPOS = [
     'TheJanusStream/symbios-neat',
     'TheJanusStream/symbios-texture',
     'TheJanusStream/symbios-audio',
+    'TheJanusStream/symbios-avatar',
     'TheJanusStream/bevy_symbios',
     'TheJanusStream/bevy_symbios_texture',
     'TheJanusStream/bevy_symbios_ground',
     'TheJanusStream/bevy_symbios_shape',
     'TheJanusStream/bevy_symbios_multiuser',
-    'TheJanusStream/bevy_symbios_audio'
+    'TheJanusStream/bevy_symbios_audio',
+    'TheJanusStream/bevy_symbios_avatar'
 ] as const;
 
 /** Application-layer project names */
 export const APP_NAMES = ['lsystem-explorer', 'symbios-ground-lab', 'symbios-robot-lab', 'symbios-overlands'] as const;
 
 /** Bevy-layer crate names */
-export const BEVY_NAMES = ['bevy_symbios_texture', 'bevy_symbios', 'bevy_symbios_multiuser', 'bevy_symbios_ground', 'bevy_symbios_shape', 'bevy_symbios_audio'] as const;
+export const BEVY_NAMES = ['bevy_symbios_texture', 'bevy_symbios', 'bevy_symbios_multiuser', 'bevy_symbios_ground', 'bevy_symbios_shape', 'bevy_symbios_audio', 'bevy_symbios_avatar'] as const;
 
 /** Dependency topology derived from Cargo.toml analysis */
 export const DEPENDENCY_MAP: Record<string, string[]> = {
@@ -41,17 +43,19 @@ export const DEPENDENCY_MAP: Record<string, string[]> = {
     'lsystem-explorer': ['bevy_symbios', 'bevy_symbios_texture', 'symbios', 'symbios-turtle-3d', 'symbios-genetics'],
     'symbios-ground-lab': ['bevy_symbios_ground', 'bevy_symbios_shape', 'bevy_symbios_texture', 'symbios-ground', 'symbios-shape', 'symbios-tensor'],
     'symbios-robot-lab': ['bevy_symbios', 'symbios', 'symbios-robot', 'symbios-neat', 'symbios-genetics'],
-    'symbios-overlands': ['bevy_symbios_texture', "bevy_symbios_multiuser", "symbios-ground", "bevy_symbios_ground", "bevy_symbios", "symbios", "symbios-turtle-3d", "symbios-shape", "bevy_symbios_shape", "bevy_symbios_audio", 'symbios-tensor'],
+    'symbios-overlands': ['bevy_symbios_texture', "bevy_symbios_multiuser", "symbios-ground", "bevy_symbios_ground", "bevy_symbios", "symbios", "symbios-turtle-3d", "symbios-shape", "bevy_symbios_shape", "bevy_symbios_audio", 'symbios-tensor', 'bevy_symbios_avatar', 'symbios-avatar'],
     // Bevy → Agnostic layer
     'bevy_symbios': ['symbios', 'symbios-turtle-3d', 'bevy_symbios_texture'],
     'bevy_symbios_texture': ['symbios-texture', 'symbios-genetics'],
     'bevy_symbios_ground': ['symbios-ground'],
     'bevy_symbios_shape': ['symbios-shape', 'bevy_symbios_texture'],
     'bevy_symbios_audio': ['symbios-audio', 'symbios-genetics'],
+    'bevy_symbios_avatar': ['symbios-avatar'],
     // Agnostic intra-layer
     'symbios-shape': ['symbios-genetics'],
     'symbios-tensor': ['symbios-ground'],
     'symbios-neat': ['symbios-genetics'],
     'symbios-audio': ['symbios-genetics'],
     'symbios-texture': ['symbios-genetics'],
+    'symbios-avatar': ['symbios-texture'],
 };
