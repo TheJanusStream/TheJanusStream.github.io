@@ -1,6 +1,6 @@
 /** Crate names tracked on crates.io */
 export const CRATES = [
-    'symbios-genetics', 'symbios', 'symbios-turtle-3d', 'symbios-robot', 'symbios-ground', 'symbios-tensor', 'symbios-shape', 'symbios-neat', 'symbios-texture', 'symbios-audio', 'symios-avatar',
+    'symbios-genetics', 'symbios', 'symbios-turtle-3d', 'symbios-robot', 'symbios-ground', 'symbios-tensor', 'symbios-shape', 'symbios-neat', 'symbios-texture', 'symbios-audio', 'symbios-avatar',
     'bevy_symbios', 'bevy_symbios_texture', 'bevy_symbios_ground', 'bevy_symbios_shape', 'bevy_symbios_multiuser', 'bevy_symbios_audio', 'bevy_symbios_avatar'
 ] as const;
 
