@@ -7,15 +7,15 @@
         downloads?: number;
         recent_downloads?: number;
         description?: string;
-        repository?: string;
-        documentation?: string;
-        homepage?: string;
-        license?: string;
+        repository?: string | null;
+        documentation?: string | null;
+        homepage?: string | null;
+        license?: string | null;
         keywords?: string[];
         categories?: string[];
-        crate_size?: number;
-        rust_lines?: number;
-        rust_files?: number;
+        crate_size?: number | null;
+        rust_lines?: number | null;
+        rust_files?: number | null;
         created_at?: string;
         updated_at?: string;
     }
@@ -26,7 +26,7 @@
         open_issues?: number;
         description?: string;
         url?: string;
-        license?: string;
+        license?: string | null;
         language?: string;
         topics?: string[];
     }
@@ -167,7 +167,7 @@
         const onResize = () => computePaths();
         window.addEventListener('resize', onResize);
 
-        // Recompute when the group hover reveals the content (opacity transition)
+        // Recompute when a card's classes or style change under the hover highlight
         const observer = new MutationObserver(() => {
             requestAnimationFrame(() => computePaths());
         });
@@ -201,10 +201,7 @@
     }
 
     const canvasApps = [
-        { slug: 'TheJanusStream/lsystem-explorer', name: 'lsystem-explorer', fallbackDesc: 'Interactive Evolutionary Computation workbench.', appUrl: 'https://thejanusstream.github.io/lsystem-explorer', image: '/lsystem-explorer.png' },
-        { slug: 'TheJanusStream/symbios-ground-lab', name: 'symbios-ground-lab', fallbackDesc: 'Procedural terraforming & urban tensor mapping.', appUrl: 'https://thejanusstream.github.io/symbios-ground-lab', image: '/symbios-ground-lab.png' },
-        { slug: 'TheJanusStream/symbios-robot-lab', name: 'symbios-robot-lab', fallbackDesc: 'Robots with evolving bodies & brains.', appUrl: 'https://thejanusstream.github.io/symbios-robot-lab', image: '/symbios-robot-lab.png' },
-        { slug: 'TheJanusStream/symbios-overlands', name: 'symbios-overlands', fallbackDesc: 'coming soon.', appUrl: 'https://thejanusstream.github.io/symbios-overlands', image: '/symbios-overlands.png' }
+        { slug: 'TheJanusStream/symbios-overlands', name: 'symbios-overlands', fallbackDesc: "A free and open creative virtual world. Build yours, then walk into your friends'.", appUrl: 'https://thejanusstream.github.io/symbios-overlands', image: '/overlands.webp' }
     ];
 
     const getRepo = (slug: string) => githubData?.[slug] ?? null;
@@ -231,11 +228,8 @@
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<section class="group relative border border-glow-teal rounded-lg overflow-hidden">
-    <div class="absolute inset-0 bg-[url('/symbios.png')] bg-center bg-no-repeat bg-cover transition-opacity duration-500 group-hover:opacity-20 pointer-events-none"></div>
-    <div class="absolute inset-0 bg-janus-bg/80 backdrop-blur-md opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none"></div>
-
-    <div class="relative z-10 p-8 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+<section class="relative border border-glow-teal rounded-lg overflow-hidden bg-black/40">
+    <div class="relative z-10 p-8"
          bind:this={containerEl}
          onmouseleave={() => { hoveredNode = null; }}>
         <h2 class="text-3xl text-janus-teal mb-2">The Symbios Ecosystem</h2>
@@ -374,21 +368,19 @@
 
                 <!-- Layer 3 (top): Applications -->
                 <div>
-                    <h3 class="text-lg text-janus-slate border-b border-janus-slate pb-2 mb-4">3. Interactive Canvases (as WASM)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <h3 class="text-lg text-janus-slate border-b border-janus-slate pb-2 mb-4">3. Interactive Canvas (as WASM)</h3>
+                    <div class="grid grid-cols-1 gap-4">
                         {#each canvasApps as app (app.slug)}
                             {@const gh = getRepo(app.slug)}
                             <div bind:this={cardEls[app.name]}
-                                 class="group/app relative border rounded overflow-hidden transition-all duration-300 cursor-default {isHighlighted(app.name) ? 'border-janus-amber/60' : 'border-janus-slate/10 opacity-20'} {hoveredNode === app.name ? 'border-janus-amber shadow-[0_0_12px_rgba(253,195,73,0.3)]' : ''}"
+                                 class="relative border rounded overflow-hidden transition-all duration-300 cursor-default {isHighlighted(app.name) ? 'border-janus-amber/60' : 'border-janus-slate/10 opacity-20'} {hoveredNode === app.name ? 'border-janus-amber shadow-[0_0_12px_rgba(253,195,73,0.3)]' : ''}"
                                  onmouseenter={() => { hoveredNode = app.name; computePaths(); }}
                                  role="listitem">
-                                <!-- Background image -->
-                                <div class="absolute inset-0 bg-center bg-no-repeat bg-cover transition-opacity duration-500 group-hover/app:opacity-20" style="background-image: url('{app.image}');"></div>
-                                <!-- Blur overlay -->
-                                <div class="absolute inset-0 bg-janus-bg/80 backdrop-blur-md opacity-0 transition-opacity duration-500 group-hover/app:opacity-100 pointer-events-none"></div>
+                                <!-- The app's picture, darkened behind the text on its left -->
+                                <div class="absolute inset-0 bg-center bg-no-repeat bg-cover" style="background-image: url('{app.image}');"></div>
+                                <div class="absolute inset-0 bg-linear-to-r from-janus-bg/95 via-janus-bg/60 to-transparent pointer-events-none"></div>
 
-                                <!-- Content: hidden until hover -->
-                                <div class="relative z-10 p-4 flex flex-col opacity-0 transition-opacity duration-500 group-hover/app:opacity-100 min-h-45">
+                                <div class="relative z-10 p-4 flex flex-col min-h-80 max-w-xl">
                                     <span class="font-bold text-janus-amber block mb-2">{app.name}</span>
                                     <p class="text-xs text-gray-400 mb-3">{gh?.description ?? app.fallbackDesc}</p>
 

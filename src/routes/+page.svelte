@@ -1,14 +1,29 @@
 <script lang="ts">
 	import ExhibitCarousel from '$lib/components/ExhibitCarousel.svelte';
-	import FoundryExhibit from '$lib/components/FoundryExhibit.svelte';
+	import OverlandsExhibit from '$lib/components/OverlandsExhibit.svelte';
 	import SymbiosPipeline from '$lib/components/SymbiosPipeline.svelte';
-	import WorkflowExhibit from '$lib/components/WorkflowExhibit.svelte';
     import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
-	const exhibitLabels = ['Symbios', 'Workflow', 'Foundry'];
+	const exhibitLabels = ['Overlands', 'Symbios'];
+
+	const description =
+		"A free and open creative virtual world in your web browser. Build your own world, then walk into your friends'. Sign in with your Bluesky account.";
 </script>
+
+<svelte:head>
+	<title>Symbios Overlands · The Janus Stream</title>
+	<meta name="description" content={description} />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://thejanusstream.github.io/" />
+	<meta property="og:title" content="Symbios Overlands" />
+	<meta property="og:description" content={description} />
+	<meta property="og:image" content="https://thejanusstream.github.io/overlands-card.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta name="twitter:card" content="summary_large_image" />
+</svelte:head>
 
 <main class="relative z-10 mx-auto max-w-7xl px-6 py-16">
 	<header class="mb-20 text-center">
@@ -29,11 +44,9 @@
 	<ExhibitCarousel labels={exhibitLabels}>
 		{#snippet children(current)}
 			{#if current === 0}
-				<SymbiosPipeline cratesData={data.crates} githubData={data.github} />
-			{:else if current === 1}
-				<WorkflowExhibit />
+				<OverlandsExhibit />
 			{:else}
-				<FoundryExhibit githubData={data.github} />
+				<SymbiosPipeline cratesData={data.crates} githubData={data.github} />
 			{/if}
 		{/snippet}
 	</ExhibitCarousel>
