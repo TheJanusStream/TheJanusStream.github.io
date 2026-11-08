@@ -41,9 +41,12 @@ jobs:
       - name: Build SvelteKit Site
         # The GITHUB_TOKEN is automatically provided by the Actions runner.
         # We pass it as an environment variable so SvelteKit's fetch logic can use it to bypass API limits.
+        # No BASE_PATH: this is a user site (<user>.github.io), served from the
+        # domain root, so SvelteKit's paths.base stays empty. Set to the
+        # repository's name, it makes the prerender refuse every root-relative
+        # asset path (/overlands/...) the page links.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BASE_PATH: '/${{ github.event.repository.name }}'
         run: npm run build
 
       - name: Upload Pages artifact
